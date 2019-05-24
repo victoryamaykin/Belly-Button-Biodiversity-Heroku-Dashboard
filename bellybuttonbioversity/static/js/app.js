@@ -11,8 +11,7 @@ function buildMetadata(sample) {
       buildGauge(data.WFREQ);
     }); 
   }
-// // BONUS: Build the Gauge Chart
-//     buildGauge(data.WFREQ);
+
 
 function buildCharts(sample) {
   d3.json(`/samples/${sample}`).then(function(data1) {
@@ -33,7 +32,7 @@ function buildCharts(sample) {
       showlegend: false,
       xaxis: {
         title: {
-          text: 'OTU ID',
+          text: 'Microbial "Species" or Operational Taxonomic Unit (OTU) ID',
           font: {
             family: 'Courier New, monospace',
             size: 18
@@ -53,15 +52,14 @@ function buildCharts(sample) {
         labels: data2.otu_ids.slice(0,10),
         values: data2.sample_values.slice(0,10),
         type: "pie",
-        hoverinfo: data2.sample_values.slice(0,10)
+        hoverinfo: data2.otu_labels.slice(0,10)
       }
 
       var data2 = [trace2]
 
       var layout2 = {
         title: `Sample #: ${sample}`,
-        height: 500,
-        width: 700
+        
       };
       var PIE = document.getElementById("pie");
 

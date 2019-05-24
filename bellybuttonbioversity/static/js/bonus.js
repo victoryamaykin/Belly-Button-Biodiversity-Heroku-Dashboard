@@ -61,8 +61,7 @@ function buildGauge (sample) {
                 }
                 }],
             title: `<b>Belly Button Washing Frequency</b> <br> Scrubs per Week: ${sample}`,
-            height: 1000,
-            width: 1000,
+            
             xaxis: {zeroline:false, showticklabels:false,
                         showgrid: false, range: [-1, 1]},
             yaxis: {zeroline:false, showticklabels:false,

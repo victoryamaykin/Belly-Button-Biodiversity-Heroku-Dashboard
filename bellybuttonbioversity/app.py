@@ -7,6 +7,7 @@ import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
+from sqlalchemy import desc
 
 from flask import (
     Flask,
@@ -84,7 +85,9 @@ def samples(sample):
     """Return `otu_ids`, `otu_labels`,and `sample_values`."""
     stmt = db.session.query(Samples).statement
     df = pd.read_sql_query(stmt, db.session.bind)
+    print(df.columns)
 
+    df = df.sort_values(by='otu_label', ascending=False)
     sample_data = df.loc[df[sample] > 1, ["otu_id", "otu_label", sample]]
 
     data = {
@@ -93,25 +96,6 @@ def samples(sample):
         "otu_labels": sample_data.otu_label.tolist(),
     }
     return jsonify(data)
-
-# @app.route("/wfreq/<sample>")
-# def scrubs(sample):
-#     sel = [
-#         Samples_Metadata.sample,
-#         Samples_Metadata.WFREQ,
-#     ]
-
-#     results = db.session.query(*sel).filter(Samples_Metadata.sample == sample).all()
-
-#     # Create a dictionary entry for each row of metadata information
-#     sample_freqdata = {}
-#     for result in results:
-#         sample_metadata["sample"] = result[0]
-#         sample_metadata["WFREQ"] = result[6]
-
-#     print(sample_freqdata)
-#     return jsonify(sample_freqdata)
-
 
 if __name__ == "__main__":
     app.run()
