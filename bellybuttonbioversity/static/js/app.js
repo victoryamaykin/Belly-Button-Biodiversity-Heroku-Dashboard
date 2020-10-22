@@ -14,7 +14,7 @@ function buildMetadata(sample) {
 
 
 function buildCharts(sample) {
-  d3.json(`/samples/${sample}`).then(function(data1) {
+  d3.json(`/samples/${sample}`).then((data1) => {
     var trace1 = {
       x: data1.otu_ids,
       y: data1.sample_values,
@@ -22,7 +22,8 @@ function buildCharts(sample) {
       mode: 'markers',
       marker: {
         color: data1.otu_ids, 
-        size: data1.sample_values
+        size: data1.sample_values,
+        colorscale: "Earth"
         }
       }
     var data1 = [trace1];
